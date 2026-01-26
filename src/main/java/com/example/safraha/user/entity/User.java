@@ -11,9 +11,11 @@ public class User {
     private Long id;
 
     private String name;
+    @Column(nullable = false, unique = true)
     private String email;
     private String password;
     private String role;
+    @Column(nullable = false, unique = true)
     private String phone;
 
     private LocalDateTime createdAt;
