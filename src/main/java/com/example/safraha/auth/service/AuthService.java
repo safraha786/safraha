@@ -7,6 +7,7 @@ import com.example.safraha.auth.dto.LoginRequest;
 import com.example.safraha.auth.dto.LoginResponse;
 import com.example.safraha.auth.dto.SignupRequest;
 import com.example.safraha.auth.dto.SignupResponse;
+import com.example.safraha.config.JwtTokenProvider;
 import com.example.safraha.user.entity.User;
 import com.example.safraha.user.repository.UserRepository;
 
@@ -15,10 +16,12 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+		this.jwtTokenProvider = jwtTokenProvider;
     }
 
     public SignupResponse signup(SignupRequest request) {
@@ -62,12 +65,15 @@ public class AuthService {
         if (!matches) {
             throw new RuntimeException("Invalid email or password");
         }
+        
+        String token = jwtTokenProvider.generateToken(user.getId(), user.getEmail());
 
         LoginResponse response = new LoginResponse();
         response.setId(user.getId());
         response.setName(user.getName());
         response.setEmail(user.getEmail());
         response.setPhone(user.getPhone());
+        response.setToken(token);
 
         return response;
     }

@@ -1,13 +1,11 @@
-package com.example.safraha.auth.dto;
+package com.example.safraha.user.dto;
 
-public class LoginResponse {
+public class UserResponse {
 
     private Long id;
     private String name;
     private String email;
     private String phone;
-    private String token;
-    
 	public Long getId() {
 		return id;
 	}
@@ -31,12 +29,6 @@ public class LoginResponse {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
 	}
 
     
