@@ -21,7 +21,7 @@ public class UserController {
     @GetMapping("/me")
     public UserResponse getMe(Authentication authentication) {
 
-        String email = authentication.getName(); // from JWT
-        return userService.getCurrentUser(email);
+        Long userId = Long.parseLong(authentication.getName()); // from JWT
+        return userService.getCurrentUser(userId);
     }
 }

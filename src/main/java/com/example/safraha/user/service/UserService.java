@@ -19,9 +19,9 @@ public class UserService {
         return userRepository.save(user);
     }
     
-    public UserResponse getCurrentUser(String email) {
+    public UserResponse getCurrentUser(Long userId) {
 
-        User user = userRepository.findByEmail(email)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         UserResponse response = new UserResponse();

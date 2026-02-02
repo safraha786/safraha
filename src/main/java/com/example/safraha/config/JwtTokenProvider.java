@@ -30,19 +30,23 @@ public class JwtTokenProvider {
         Date expiry = new Date(now.getTime() + validityInMs);
 
         return Jwts.builder()
-                .setSubject(email)
-                .claim("userId", userId)
+                .setSubject(String.valueOf(userId))   // ✅ userId as subject
+                .claim("email", email)               // email as extra claim
                 .setIssuedAt(now)
                 .setExpiration(expiry)
                 .signWith(getSigningKey())
                 .compact();
     }
 
-    public String getEmail(String token) {
-        return Jwts.parserBuilder().setSigningKey(getSigningKey()).build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+    public Long getUserId(String token) {
+        return Long.parseLong(
+                Jwts.parserBuilder()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getSubject()
+        );
     }
 
     public boolean validateToken(String token) {
