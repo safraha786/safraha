@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface NightWalletRepository extends JpaRepository<NightWallet, Long> {
 
-    Optional<NightWallet> findByUserId(Long userId);
+	Optional<NightWallet> findByMembership_Id(Long membershipId);
 }

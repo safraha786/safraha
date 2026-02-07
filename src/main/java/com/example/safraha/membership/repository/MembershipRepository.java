@@ -1,12 +1,18 @@
 package com.example.safraha.membership.repository;
 
 
-import com.example.safraha.membership.entity.Membership;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
+import com.example.safraha.membership.entity.Membership;
 
 public interface MembershipRepository extends JpaRepository<Membership, Long> {
 
-    Optional<Membership> findByUserIdAndActiveTrue(Long userId);
+	List<Membership> findByUser_IdAndActiveTrue(Long userId);
+    List<Membership> findByUser_IdAndRegionIdAndActiveTrue(
+            Long userId, Long regionId);
+    
+    
 }
