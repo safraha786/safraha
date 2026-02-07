@@ -1,5 +1,10 @@
 package com.example.safraha.booking.repository;
 
-public class BookingRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.safraha.booking.entity.Booking;
+
+public interface BookingRepository extends JpaRepository<Booking, Long> {
 
 }
+

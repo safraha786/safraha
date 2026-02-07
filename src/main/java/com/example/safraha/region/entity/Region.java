@@ -1,6 +1,17 @@
 package com.example.safraha.region.entity;
 
-import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.example.safraha.hotel.entity.Hotel;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "regions")
@@ -12,6 +23,9 @@ public class Region {
 
     @Column(unique = true)
     private String name;   // SOUTH_INDIA, NORTH_EAST, UAE, METRO
+    
+    @ManyToMany(mappedBy = "regions")
+    private Set<Hotel> hotels = new HashSet<>();
     
     public Region() {
     }
@@ -35,6 +49,14 @@ public class Region {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Set<Hotel> getHotels() {
+		return hotels;
+	}
+
+	public void setHotels(Set<Hotel> hotels) {
+		this.hotels = hotels;
 	}
 
     
